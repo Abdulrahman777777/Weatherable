@@ -5,7 +5,6 @@ const requestIp = require("request-ip");
 async function getWeather() {
   const ip = await fetch("https://api.ipify.org/?format=json");
   const formattedIp = await ip.json();
-  console.log(formattedIp);
   const data = await fetch(
     `https://api.geoapify.com/v1/ipinfo?ip=${formattedIp.ip}&apiKey=${process.env.GEO_CODE}`
   );
@@ -14,6 +13,5 @@ async function getWeather() {
 
 export default async function handler() {
   const city = (await getWeather()) as any;
-  console.log(city);
   return city.country.names.en;
 }
